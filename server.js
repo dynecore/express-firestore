@@ -1,6 +1,6 @@
 /* eslint-disable n/no-callback-literal */
 // eslint-disable-next-line no-unused-vars
-const { color, bgColor, style, SetColor } = require('./dynemods')
+const { color, bgColor, style, SetColor } = require('./resources/dynemods')
 const app = require('./src/main.js')
 const express = require('express')
 const initialPort = process.env.PORT
@@ -42,6 +42,12 @@ function findAvailablePort (startingPort, callback) {
   tryPort(currentPort)
 }
 
+const SuccessMessage = (port) => {
+  console.primary(`Servidor escuchando en el puerto ${SetColor(color.yellow, port)}`)
+  console.warning('----------')
+  console.info(`local: ${SetColor(color.yellow, 'http://localhost:', port, '/')}`)
+}
+
 // eslint-disable-next-line eqeqeq
 if (port == '' || port == undefined) {
 // Verificar el puerto y manejar la redirección si es necesario
@@ -56,7 +62,7 @@ if (port == '' || port == undefined) {
           port = availablePort
           console.info(`Puerto redirigido a ${SetColor(color.yellow, port)}`)
           app.listen(port, () => {
-            console.primary(`Servidor escuchando en el puerto ${SetColor(color.yellow, port)}`)
+            SuccessMessage(port)
           })
         })
       } else {
@@ -64,7 +70,7 @@ if (port == '' || port == undefined) {
       }
     } else {
       app.listen(port, () => {
-        console.primary(`Servidor escuchando en el puerto ${SetColor(color.yellow, port)}`)
+        SuccessMessage(port)
       })
     }
   })
