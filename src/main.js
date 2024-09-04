@@ -11,6 +11,25 @@ app.get('/', (req, res) => {
   res.send(jsobject)
 })
 
+const storedUid = '12345'
+
+app.get('/chkusr', (req, res) => {
+  console.primary('---------get---------')
+  console.log('Petición:', req.query)
+
+  const { uid } = req.query
+
+  if (uid === storedUid) {
+    const response = { message: 'OK', status: 200 }
+    console.log('Respuesta:', response)
+    res.status(200).json(response)
+  } else {
+    const response = { message: 'Bad Request', status: 200 }
+    console.log('Respuesta:', response)
+    res.status(200).json(response)
+  }
+})
+
 app.use(morgan('dev'))
 
 module.exports = app
