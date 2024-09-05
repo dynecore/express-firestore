@@ -1,8 +1,10 @@
 console.info('Iniciando servidor...')
 
+require('./firebase/init')
 const express = require('express')
 const morgan = require('morgan')
-require('./firebase/firebaseConn.js')
+require('./firebase/firestore.js')
+require('./firebase/auth')
 
 const app = express()
 
